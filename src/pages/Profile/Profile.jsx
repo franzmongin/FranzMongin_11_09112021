@@ -91,12 +91,6 @@ function Profile() {
                   height={320}
                   data={dailyData}
                   // barGap="8"
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
                 >
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
@@ -119,7 +113,7 @@ function Profile() {
                     fill="#020203"
                     radius={[5, 5, 0, 0]}
                   />
-                  <Legend verticalAlign="top" horizAdvX="right" />
+                  <Legend verticalAlign="top" align="right" />
                   <Bar
                     barSize={7}
                     dataKey="calories"
