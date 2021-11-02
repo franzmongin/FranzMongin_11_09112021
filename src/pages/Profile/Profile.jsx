@@ -71,47 +71,64 @@ function Profile() {
           <h1>Bonjour Thomas</h1>
           <h2>Félicitations! Vous avez explosé vos objectifs hier 👏</h2>
           <section className="graphics">
-            <BarChart
-              width={835}
-              height={320}
-              data={dailyData}
-              // barGap="8"
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis
-                dataKey="day"
-                padding={{ left: 10, right: 10 }}
-                scale="point"
-                tickLine={false}
-                tickFormatter={dateTickFormatter}
-              />
-              <YAxis
-                orientation="right"
-                axisLine={false}
-                dx={10}
-                tickLine={false}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              <Legend verticalAlign="top" align="right" margin={{ top: 50 }} />
-              <Bar
-                barSize={7}
-                dataKey="kilogram"
-                fill="#020203"
-                radius={[5, 5, 0, 0]}
-              />
-              <Bar
-                barSize={7}
-                dataKey="calories"
-                fill="#ff0101"
-                radius={[5, 5, 0, 0]}
-              />
-            </BarChart>
+            <div className="daily-graphic">
+              <div className="daily-graphic-heading">
+                <h3>Activité quotidienne</h3>
+                <div className="daily-graphic-heading-legends">
+                  <div className="mass-legend">
+                    <div className=""></div>
+                    <span>Poids (kg)</span>
+                  </div>
+                  <div className="calory-legend">
+                    <div className=""></div>
+                    <span>Calories brûlées (kCal)</span>
+                  </div>
+                </div>
+              </div>
+              <div className="daily-graphic-container">
+                <BarChart
+                  width={763}
+                  height={320}
+                  data={dailyData}
+                  // barGap="8"
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis
+                    dataKey="day"
+                    padding={{ left: 10, right: 10 }}
+                    scale="point"
+                    tickLine={false}
+                    tickFormatter={dateTickFormatter}
+                  />
+                  <YAxis
+                    orientation="right"
+                    axisLine={false}
+                    dx={10}
+                    tickLine={false}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar
+                    barSize={7}
+                    dataKey="kilogram"
+                    fill="#020203"
+                    radius={[5, 5, 0, 0]}
+                  />
+                  <Legend verticalAlign="top" horizAdvX="right" />
+                  <Bar
+                    barSize={7}
+                    dataKey="calories"
+                    fill="#ff0101"
+                    radius={[5, 5, 0, 0]}
+                  />
+                </BarChart>
+              </div>
+            </div>
           </section>
           <section className="stats"></section>
         </div>

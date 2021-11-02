@@ -53,6 +53,25 @@ $second-red: #e60000;
     }
     .main-content {
       flex-grow: 1;
+      .graphics {
+        .daily-graphic {
+          width: 835px;
+          display: flex;
+          flex-wrap: wrap;
+          background-color: #fbfbfb;
+          &-heading {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            &-legends {
+              display: flex;
+              align-items: center;
+            }
+          }
+          &-container {
+          }
+        }
+      }
       .custom-tooltip {
         background-color: $second-red;
         color: white;
