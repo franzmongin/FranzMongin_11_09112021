@@ -1,0 +1,64 @@
+$base-black: #020203;
+$base-red: #ff0101;
+$second-red: #e60000;
+.app {
+  font-family: Roboto;
+  display: flex;
+  flex-direction: column;
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    height: 90px;
+    box-sizing: border-box;
+    padding-left: 30px;
+    padding-bottom: 15px;
+    padding-top: 20px;
+    font-weight: 500;
+    background-color: $base-black;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    &-links {
+      flex-grow: 1;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      a {
+        color: white;
+        text-decoration: none;
+        font-size: 24px;
+      }
+    }
+  }
+  .profile-page {
+    display: flex;
+    .sidebar {
+      background-color: $base-black;
+      display: flex;
+      flex-direction: column;
+      width: 117px;
+      height: calc(100vh - 90px);
+      justify-content: center;
+      align-items: center;
+      .activities-logos {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 20px;
+      }
+      .copyright-logo {
+        width: 34px;
+        height: 138px;
+        position: absolute;
+        bottom: 60px;
+      }
+    }
+    .main-content {
+      flex-grow: 1;
+      .custom-tooltip {
+        background-color: $second-red;
+        color: white;
+        font-size: 10px;
+        padding: 5px 10px;
+      }
+    }
+  }
+}
