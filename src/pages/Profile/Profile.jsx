@@ -72,25 +72,14 @@ function Profile() {
           <h2>Félicitations! Vous avez explosé vos objectifs hier 👏</h2>
           <section className="graphics">
             <div className="daily-graphic">
-              <div className="daily-graphic-heading">
-                <h3>Activité quotidienne</h3>
-                <div className="daily-graphic-heading-legends">
-                  <div className="mass-legend">
-                    <div className=""></div>
-                    <span>Poids (kg)</span>
-                  </div>
-                  <div className="calory-legend">
-                    <div className=""></div>
-                    <span>Calories brûlées (kCal)</span>
-                  </div>
-                </div>
-              </div>
+              <h3 className="daily-graphic-heading">Activité quotidienne</h3>
               <div className="daily-graphic-container">
                 <BarChart
                   width={763}
                   height={320}
                   data={dailyData}
-                  // barGap="8"
+                  barGap="8"
+                  title="coucou"
                 >
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis
@@ -99,11 +88,12 @@ function Profile() {
                     scale="point"
                     tickLine={false}
                     tickFormatter={dateTickFormatter}
+                    dy={15}
                   />
                   <YAxis
                     orientation="right"
                     axisLine={false}
-                    dx={10}
+                    dx={15}
                     tickLine={false}
                   />
                   <Tooltip content={<CustomTooltip />} />
@@ -113,7 +103,32 @@ function Profile() {
                     fill="#020203"
                     radius={[5, 5, 0, 0]}
                   />
-                  <Legend verticalAlign="top" align="right" />
+                  <Legend
+                    verticalAlign="top"
+                    align="right"
+                    dx={20}
+                    iconType="circle"
+                    iconSize={10}
+                    wrapperStyle={{
+                      paddingBottom: "50px",
+                    }}
+                    formatter={(value, entry, index) => {
+                      console.log(value);
+                      if (value === "kilogram") {
+                        return (
+                          <span className="daily-graphic-legend-span">
+                            Poids (kg)
+                          </span>
+                        );
+                      } else {
+                        return (
+                          <span className="daily-graphic-legend-span">
+                            Calories brûlées (kCal)
+                          </span>
+                        );
+                      }
+                    }}
+                  />
                   <Bar
                     barSize={7}
                     dataKey="calories"

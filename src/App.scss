@@ -55,20 +55,30 @@ $second-red: #e60000;
       flex-grow: 1;
       .graphics {
         .daily-graphic {
-          width: 835px;
+          width: 763px;
           display: flex;
           flex-wrap: wrap;
+          justify-content: center;
           background-color: #fbfbfb;
+          position: relative;
+          padding-left: 43px;
+          padding-top: 24px;
+          padding-right: 30px;
+          padding-bottom: 23px;
           &-heading {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            &-legends {
-              display: flex;
-              align-items: center;
-            }
+            position: absolute;
+            margin: 0;
+            left: 0;
+            padding: inherit;
+            padding-top: 0;
           }
           &-container {
+            .recharts-default-legend {
+              margin-right: -50px;
+            }
+            .daily-graphic-legend-span {
+              color: #74798c;
+            }
           }
         }
       }
