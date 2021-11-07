@@ -54,7 +54,12 @@ function Profile() {
             element.kindLabel = "intensité";
           }
         });
-        setperformanceData(perfData);
+
+        setperformanceData(
+          perfData.sort((a, b) => {
+            return a.kind < b.kind ? 1 : -1;
+          })
+        );
       });
   }, []);
 

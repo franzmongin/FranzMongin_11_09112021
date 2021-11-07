@@ -136,8 +136,13 @@ $second-red: #e60000;
           }
         }
         .performance-graphic {
-          width: 730px;
-          height: 250px;
+          width: 258px;
+          height: 263px;
+          background-color: #282d30;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
           .recharts-text.recharts-polar-angle-axis-tick-value {
             tspan {
               text-transform: capitalize;
