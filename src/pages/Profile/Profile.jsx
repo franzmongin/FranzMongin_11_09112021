@@ -1,58 +1,63 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import TopBar from "../../components/TopBar";
+import TopBar from "../../components/TopBar/TopBar";
 import sidebarlogo1 from "./sidebar-icon1.svg";
 import sidebarlogo2 from "./sidebar-icon2.svg";
 import sidebarlogo3 from "./sidebar-icon3.svg";
 import sidebarlogo4 from "./sidebar-icon4.svg";
 import copyrightlogo from "./copyrightlogo.svg";
-import {
-  BarChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  Bar,
-  ResponsiveContainer,
-} from "recharts";
+import DailyGraphic from "../../components/DailyGraphic/DailyGraphic";
+import AverageSessionsGraphic from "../../components/AverageSessionsGraphic/AverageSessionsGraphic";
+import PerformanceGraphic from "../../components/PerformanceGraphic/PerformanceGraphic";
 
 function Profile() {
   const { id } = useParams();
   const [userId, setuserId] = useState(id);
   const [dailyData, setdailyData] = useState();
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="custom-tooltip">
-          <p>{` ${payload[0].value} kg`}</p>
-          <p>{` ${payload[1].value} Kcal`}</p>
-        </div>
-      );
-    }
+  const [averageSessionsData, setaverageSessionsData] = useState();
+  const [performanceData, setperformanceData] = useState();
 
-    return null;
-  };
   useEffect(() => {
     fetch(`http://localhost:3000/user/${id}/activity`)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data.data.sessions);
         setdailyData(data.data.sessions);
       });
+    fetch(`http://localhost:3000/user/${id}/average-sessions`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setaverageSessionsData(data.data.sessions);
+      });
+    fetch(`http://localhost:3000/user/${id}/performance`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        let perfData = data.data.data;
+        let kindData = data.data.kind;
+        perfData.forEach((element) => {
+          if (element.kind === 1) {
+            element.kindLabel = "cardio";
+          } else if (element.kind === 2) {
+            element.kindLabel = "énergie";
+          } else if (element.kind === 3) {
+            element.kindLabel = "endurance";
+          } else if (element.kind === 4) {
+            element.kindLabel = "force";
+          } else if (element.kind === 5) {
+            element.kindLabel = "vitesse";
+          } else if (element.kind === 6) {
+            element.kindLabel = "intensité";
+          }
+        });
+        setperformanceData(perfData);
+      });
   }, []);
-  const dateTickFormatter = (tickitem) => {
-    if (
-      typeof tickitem === "string" &&
-      tickitem.includes("0") &&
-      tickitem.toString() !== "0"
-    ) {
-      return tickitem.split("-")[2].split("0")[1];
-    }
-    return tickitem;
-  };
+
   return (
     <>
       <TopBar />
@@ -71,73 +76,9 @@ function Profile() {
           <h1>Bonjour Thomas</h1>
           <h2>Félicitations! Vous avez explosé vos objectifs hier 👏</h2>
           <section className="graphics">
-            <div className="daily-graphic">
-              <h3 className="daily-graphic-heading">Activité quotidienne</h3>
-              <div className="daily-graphic-container">
-                <BarChart
-                  width={763}
-                  height={320}
-                  data={dailyData}
-                  barGap="8"
-                  title="coucou"
-                >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis
-                    dataKey="day"
-                    padding={{ left: 10, right: 10 }}
-                    scale="point"
-                    tickLine={false}
-                    tickFormatter={dateTickFormatter}
-                    dy={15}
-                  />
-                  <YAxis
-                    orientation="right"
-                    axisLine={false}
-                    dx={15}
-                    tickLine={false}
-                  />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar
-                    barSize={7}
-                    dataKey="kilogram"
-                    fill="#020203"
-                    radius={[5, 5, 0, 0]}
-                  />
-                  <Legend
-                    verticalAlign="top"
-                    align="right"
-                    dx={20}
-                    iconType="circle"
-                    iconSize={10}
-                    wrapperStyle={{
-                      paddingBottom: "50px",
-                    }}
-                    formatter={(value, entry, index) => {
-                      console.log(value);
-                      if (value === "kilogram") {
-                        return (
-                          <span className="daily-graphic-legend-span">
-                            Poids (kg)
-                          </span>
-                        );
-                      } else {
-                        return (
-                          <span className="daily-graphic-legend-span">
-                            Calories brûlées (kCal)
-                          </span>
-                        );
-                      }
-                    }}
-                  />
-                  <Bar
-                    barSize={7}
-                    dataKey="calories"
-                    fill="#ff0101"
-                    radius={[5, 5, 0, 0]}
-                  />
-                </BarChart>
-              </div>
-            </div>
+            <DailyGraphic data={dailyData} />
+            <AverageSessionsGraphic data={averageSessionsData} />
+            <PerformanceGraphic data={performanceData} />
           </section>
           <section className="stats"></section>
         </div>

@@ -80,13 +80,70 @@ $second-red: #e60000;
               color: #74798c;
             }
           }
+          .custom-tooltip {
+            background-color: $second-red;
+            color: white;
+            font-size: 10px;
+            padding: 5px 10px;
+          }
         }
-      }
-      .custom-tooltip {
-        background-color: $second-red;
-        color: white;
-        font-size: 10px;
-        padding: 5px 10px;
+        .average-sessions-graphic {
+          background-color: $base-red;
+          width: 258px;
+          height: 263px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          border-radius: 5px;
+          .graphic-title {
+            position: absolute;
+            font-size: 15px;
+            width: 130px;
+            color: white;
+            opacity: 0.5;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+            left: 34px;
+            top: 30px;
+          }
+          .recharts-wrapper {
+            top: 15px;
+          }
+          .overlay {
+            position: absolute;
+            height: 263px;
+            width: 258px;
+            background-color: #e60000;
+            opacity: 1;
+          }
+          .legends {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 25px;
+            width: inherit;
+            padding: 0 7px;
+            box-sizing: border-box;
+            color: white;
+            opacity: 0.5;
+          }
+          .custom-tooltip {
+            background-color: white;
+            padding: 0.5px 10px;
+            height: 100%;
+          }
+        }
+        .performance-graphic {
+          width: 730px;
+          height: 250px;
+          .recharts-text.recharts-polar-angle-axis-tick-value {
+            tspan {
+              text-transform: capitalize;
+            }
+          }
+        }
       }
     }
   }
