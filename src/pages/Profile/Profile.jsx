@@ -9,15 +9,26 @@ import copyrightlogo from "./copyrightlogo.svg";
 import DailyGraphic from "../../components/DailyGraphic/DailyGraphic";
 import AverageSessionsGraphic from "../../components/AverageSessionsGraphic/AverageSessionsGraphic";
 import PerformanceGraphic from "../../components/PerformanceGraphic/PerformanceGraphic";
+import DailyScoreGraphic from "../../components/DailyScoreGraphic/DailyScoreGraphic";
 
 function Profile() {
   const { id } = useParams();
-  const [userId, setuserId] = useState(id);
+  const [user, setUser] = useState();
   const [dailyData, setdailyData] = useState();
   const [averageSessionsData, setaverageSessionsData] = useState();
   const [performanceData, setperformanceData] = useState();
+  const [todayScore, settodayScore] = useState();
 
   useEffect(() => {
+    fetch(`http://localhost:3000/user/${id}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setUser(data.data);
+        settodayScore(data.data.todayScore * 100);
+      });
     fetch(`http://localhost:3000/user/${id}/activity`)
       .then((res) => {
         return res.json();
@@ -84,6 +95,7 @@ function Profile() {
             <DailyGraphic data={dailyData} />
             <AverageSessionsGraphic data={averageSessionsData} />
             <PerformanceGraphic data={performanceData} />
+            <DailyScoreGraphic data={user} todayScore={todayScore} />
           </section>
           <section className="stats"></section>
         </div>
