@@ -1,35 +1,51 @@
 import React, { useState } from "react";
-import { Legend, RadialBarChart, RadialBar, Tooltip } from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 
 function DailyScoreGraphic({ data, todayScore }) {
+  console.log(todayScore);
+  const graphData = [
+    {
+      score: todayScore,
+    },
+    {
+      score: 100 - todayScore,
+    },
+  ];
   return (
     <div className="daily-score-graphic">
-      <RadialBarChart
-        width={730}
-        height={250}
-        innerRadius="10%"
-        outerRadius="80%"
-        data={data}
-        startAngle={180}
-        endAngle={0}
-      >
-        <RadialBar
-          minAngle={15}
-          label={{ fill: "#666", position: "insideStart" }}
-          background
-          clockWise={true}
-          dataKey={todayScore}
-        />
-        <Legend
-          iconSize={10}
-          width={120}
-          height={140}
-          layout="vertical"
-          verticalAlign="middle"
-          align="right"
-        />
-        <Tooltip />
-      </RadialBarChart>
+      <span className="graphic-label">Score</span>
+      <div className="graphic-description">
+        <span className="percentage">{todayScore}%</span>
+        <span className="description">de votre objectif</span>
+      </div>
+      <PieChart width={230} height={230}>
+        <Pie
+          data={graphData}
+          innerRadius={82}
+          outerRadius={94}
+          fill="#ff0101"
+          dataKey="score"
+          startAngle={90}
+          endAngle={460}
+          stroke="none"
+          cornerRadius={40}
+        >
+          {graphData.map((entry, index) => {
+            console.log(entry.score);
+            if (entry.score !== todayScore) {
+              return <Cell key={`cell-${index}`} fill="#FBFBFB" />;
+            } else {
+              return <Cell key={`cell-${index}`} fill="#ff0101" />;
+            }
+          })}
+        </Pie>
+        <Pie
+          data={[{ score: 100 }]}
+          outerRadius={82}
+          fill="white"
+          dataKey="score"
+        ></Pie>
+      </PieChart>
     </div>
   );
 }

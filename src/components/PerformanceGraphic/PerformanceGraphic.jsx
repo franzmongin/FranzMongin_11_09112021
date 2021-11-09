@@ -2,7 +2,6 @@ import React from "react";
 import { Legend, RadarChart, PolarGrid, PolarAngleAxis, Radar } from "recharts";
 
 function PerformanceGraphic({ data }) {
-  console.log(data);
   return (
     <div className="performance-graphic">
       <RadarChart

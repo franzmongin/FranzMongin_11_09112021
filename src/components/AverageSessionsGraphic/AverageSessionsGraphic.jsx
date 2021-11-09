@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ReactElement } from "react";
 import {
   XAxis,
   YAxis,
@@ -41,6 +41,11 @@ function AverageSessionsGraphic({ data }) {
   //         break;
   //     }
   //   };
+
+  /**
+   *
+   * @param {Event} e
+   */
   const mouseMoveHandler = (e) => {
     let mousePosition = e.chartX;
     let mousePositionRight = 258 - mousePosition;
@@ -64,7 +69,17 @@ function AverageSessionsGraphic({ data }) {
       setstepPosition(tickStep * 6);
     }
   };
-  const CustomTooltip = ({ active, payload, label }) => {
+
+  /**
+   *
+   * @param {{
+   *  active: boolean
+   *  payload: Array
+   * }} param0
+   * @returns {(string|ReactElement)}
+   */
+  const CustomTooltip = ({ active, payload }) => {
+    console.log(active, payload);
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">

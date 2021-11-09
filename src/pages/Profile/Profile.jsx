@@ -10,6 +10,10 @@ import DailyGraphic from "../../components/DailyGraphic/DailyGraphic";
 import AverageSessionsGraphic from "../../components/AverageSessionsGraphic/AverageSessionsGraphic";
 import PerformanceGraphic from "../../components/PerformanceGraphic/PerformanceGraphic";
 import DailyScoreGraphic from "../../components/DailyScoreGraphic/DailyScoreGraphic";
+import caloryCountLogo from "./calory-logo.svg";
+import carbohydrateCountLogo from "./carbohydrate-logo.svg";
+import lipidCountLogo from "./lipid-logo.svg";
+import proteinCountLogo from "./protein-logo.svg";
 
 function Profile() {
   const { id } = useParams();
@@ -18,6 +22,13 @@ function Profile() {
   const [averageSessionsData, setaverageSessionsData] = useState();
   const [performanceData, setperformanceData] = useState();
   const [todayScore, settodayScore] = useState();
+  const [userName, setUserName] = useState();
+  const [stats, setStats] = useState({
+    calorieCount: "",
+    proteinCount: "",
+    carbohydrateCount: "",
+    lipidCount: "",
+  });
 
   useEffect(() => {
     fetch(`http://localhost:3000/user/${id}`)
@@ -25,9 +36,15 @@ function Profile() {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setUser(data.data);
-        settodayScore(data.data.todayScore * 100);
+        console.log(data);
+        if (data.data.score) {
+          settodayScore(data.data.score * 100);
+        } else if (data.data.todayScore) {
+          settodayScore(data.data.todayScore * 100);
+        }
+        setUserName(data.data.userInfos.firstName);
+        setStats(data.data.keyData);
       });
     fetch(`http://localhost:3000/user/${id}/activity`)
       .then((res) => {
@@ -89,15 +106,48 @@ function Profile() {
           <img src={copyrightlogo} alt="" className="copyright-logo" />
         </div>
         <div className="main-content">
-          <h1>Bonjour Thomas</h1>
+          <h1>
+            Bonjour <span className="first-name">{userName}</span>
+          </h1>
           <h2>Félicitations! Vous avez explosé vos objectifs hier 👏</h2>
-          <section className="graphics">
-            <DailyGraphic data={dailyData} />
-            <AverageSessionsGraphic data={averageSessionsData} />
-            <PerformanceGraphic data={performanceData} />
-            <DailyScoreGraphic data={user} todayScore={todayScore} />
-          </section>
-          <section className="stats"></section>
+          <div className="stats-and-graphics">
+            <section className="graphics">
+              <DailyGraphic data={dailyData} />
+              <AverageSessionsGraphic data={averageSessionsData} />
+              <PerformanceGraphic data={performanceData} />
+              <DailyScoreGraphic data={user} todayScore={todayScore} />
+            </section>
+            <section className="stats-container">
+              <div className="stat stats-calory">
+                <img src={caloryCountLogo} alt="calory logo" />
+                <div className="stat-count-and-label">
+                  <span className="stat-count">{stats.calorieCount}kCal</span>
+                  <span className="stat-label">Calories</span>
+                </div>
+              </div>
+              <div className="stat stats-protein">
+                <img src={proteinCountLogo} alt="protein logo" />
+                <div className="stat-count-and-label">
+                  <span className="stat-count"> {stats.proteinCount}g</span>
+                  <span className="stat-label">Proteines</span>
+                </div>
+              </div>
+              <div className="stat stats-carbohydrate">
+                <img src={carbohydrateCountLogo} alt="carbohydrate logo" />
+                <div className="stat-count-and-label">
+                  <span className="stat-count">{stats.carbohydrateCount}g</span>
+                  <span className="stat-label">Glucides</span>
+                </div>
+              </div>
+              <div className="stat stats-lipid">
+                <img src={lipidCountLogo} alt="lipid logo" />
+                <div className="stat-count-and-label">
+                  <span className="stat-count">{stats.lipidCount}g</span>
+                  <span className="stat-label">Lipides</span>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </main>
     </>
