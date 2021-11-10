@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
 
 function DailyScoreGraphic({ data, todayScore }) {
-  console.log(todayScore);
   const graphData = [
     {
       score: todayScore,

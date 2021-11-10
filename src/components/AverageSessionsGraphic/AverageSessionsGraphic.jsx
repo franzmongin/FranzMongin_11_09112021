@@ -8,6 +8,7 @@ import {
   Line,
   ReferenceArea,
 } from "recharts";
+import PropTypes from "prop-types";
 
 function AverageSessionsGraphic({ data }) {
   const [stepPosition, setstepPosition] = useState(0);
@@ -43,6 +44,7 @@ function AverageSessionsGraphic({ data }) {
   //   };
 
   /**
+   * Function to set the sizz of overlay depending of mouse position
    *
    * @param {Event} e
    */
@@ -71,15 +73,16 @@ function AverageSessionsGraphic({ data }) {
   };
 
   /**
+   * Custom tooltip for Average Sessions Graphic
    *
    * @param {{
    *  active: boolean
    *  payload: Array
    * }} param0
+   *
    * @returns {(string|ReactElement)}
    */
   const CustomTooltip = ({ active, payload }) => {
-    console.log(active, payload);
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
@@ -170,5 +173,8 @@ function AverageSessionsGraphic({ data }) {
     </div>
   );
 }
+AverageSessionsGraphic.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default AverageSessionsGraphic;

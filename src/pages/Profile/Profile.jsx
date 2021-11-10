@@ -115,7 +115,7 @@ function Profile() {
               <DailyGraphic data={dailyData} />
               <AverageSessionsGraphic data={averageSessionsData} />
               <PerformanceGraphic data={performanceData} />
-              <DailyScoreGraphic data={user} todayScore={todayScore} />
+              <DailyScoreGraphic todayScore={todayScore} />
             </section>
             <section className="stats-container">
               <div className="stat stats-calory">
