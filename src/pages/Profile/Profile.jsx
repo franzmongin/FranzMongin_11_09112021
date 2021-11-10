@@ -14,6 +14,12 @@ import caloryCountLogo from "./calory-logo.svg";
 import carbohydrateCountLogo from "./carbohydrate-logo.svg";
 import lipidCountLogo from "./lipid-logo.svg";
 import proteinCountLogo from "./protein-logo.svg";
+import {
+  fetchActivityData,
+  fetchAverageSessionsData,
+  fetchPerformanceData,
+  fetchUserData,
+} from "../../utils/fetchers";
 
 function Profile() {
   const { id } = useParams();
@@ -31,65 +37,56 @@ function Profile() {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:3000/user/${id}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setUser(data.data);
-        console.log(data);
-        if (data.data.score) {
-          settodayScore(data.data.score * 100);
-        } else if (data.data.todayScore) {
-          settodayScore(data.data.todayScore * 100);
-        }
-        setUserName(data.data.userInfos.firstName);
-        setStats(data.data.keyData);
-      });
-    fetch(`http://localhost:3000/user/${id}/activity`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setdailyData(data.data.sessions);
-      });
-    fetch(`http://localhost:3000/user/${id}/average-sessions`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setaverageSessionsData(data.data.sessions);
-      });
-    fetch(`http://localhost:3000/user/${id}/performance`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        let perfData = data.data.data;
-        let kindData = data.data.kind;
-        perfData.forEach((element) => {
-          if (element.kind === 1) {
-            element.kindLabel = "cardio";
-          } else if (element.kind === 2) {
-            element.kindLabel = "énergie";
-          } else if (element.kind === 3) {
-            element.kindLabel = "endurance";
-          } else if (element.kind === 4) {
-            element.kindLabel = "force";
-          } else if (element.kind === 5) {
-            element.kindLabel = "vitesse";
-          } else if (element.kind === 6) {
-            element.kindLabel = "intensité";
-          }
-        });
+    /**
+     * Fetch data from api and set states
+     */
+    const fetchData = async () => {
+      //fetch user data and stats and set states
+      const userData = await fetchUserData(id);
+      setUser(userData.data);
+      if (userData.data.score) {
+        settodayScore(userData.data.score * 100);
+      } else if (userData.data.todayScore) {
+        settodayScore(userData.data.todayScore * 100);
+      }
+      setUserName(userData.data.userInfos.firstName);
+      setStats(userData.data.keyData);
 
-        setperformanceData(
-          perfData.sort((a, b) => {
-            return a.kind < b.kind ? 1 : -1;
-          })
-        );
+      //fetch activity data
+      const activityData = await fetchActivityData(id);
+      setdailyData(activityData.data.sessions);
+
+      //fetch average sessions data and set states
+      const averageSessionsData = await fetchAverageSessionsData(id);
+      setaverageSessionsData(averageSessionsData.data.sessions);
+
+      //fetch performance data and set states
+      const performanceData = await fetchPerformanceData(id);
+      const perfData = performanceData.data.data;
+      perfData.forEach((element) => {
+        if (element.kind === 1) {
+          element.kindLabel = "cardio";
+        } else if (element.kind === 2) {
+          element.kindLabel = "énergie";
+        } else if (element.kind === 3) {
+          element.kindLabel = "endurance";
+        } else if (element.kind === 4) {
+          element.kindLabel = "force";
+        } else if (element.kind === 5) {
+          element.kindLabel = "vitesse";
+        } else if (element.kind === 6) {
+          element.kindLabel = "intensité";
+        }
       });
-  }, []);
+
+      setperformanceData(
+        perfData.sort((a, b) => {
+          return a.kind < b.kind ? 1 : -1;
+        })
+      );
+    };
+    fetchData();
+  }, [id]);
 
   return (
     <>

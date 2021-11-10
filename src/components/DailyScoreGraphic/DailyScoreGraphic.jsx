@@ -30,7 +30,6 @@ function DailyScoreGraphic({ data, todayScore }) {
           cornerRadius={40}
         >
           {graphData.map((entry, index) => {
-            console.log(entry.score);
             if (entry.score !== todayScore) {
               return <Cell key={`cell-${index}`} fill="#FBFBFB" />;
             } else {
