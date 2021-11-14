@@ -1,7 +1,8 @@
 import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
+import PropTypes from "prop-types";
 
-function DailyScoreGraphic({ data, todayScore }) {
+function DailyScoreGraphic({ todayScore }) {
   const graphData = [
     {
       score: todayScore,
@@ -47,5 +48,8 @@ function DailyScoreGraphic({ data, todayScore }) {
     </div>
   );
 }
+DailyScoreGraphic.propTypes = {
+  todayScore: PropTypes.number,
+};
 
 export default DailyScoreGraphic;

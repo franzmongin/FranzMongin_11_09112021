@@ -8,8 +8,14 @@ import {
   Legend,
   Bar,
 } from "recharts";
+import PropTypes from "prop-types";
 
 function DailyGraphic({ data: dailyData }) {
+  /** Custom tick formatter
+   *
+   * @param {string|number} tickitem
+   * @returns {(string|number)}
+   */
   const dateTickFormatter = (tickitem) => {
     if (
       typeof tickitem === "string" &&
@@ -20,7 +26,17 @@ function DailyGraphic({ data: dailyData }) {
     }
     return tickitem;
   };
-  const CustomTooltip = ({ active, payload, label }) => {
+  /**
+   * Custom tooltip for Daily Graphic
+   *
+   * @param {{
+   *  active: boolean
+   *  payload: Array
+   * }} param0
+   *
+   * @returns {(string|ReactElement)}
+   */
+  const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
@@ -54,19 +70,15 @@ function DailyGraphic({ data: dailyData }) {
             dataKey="kilogram"
             tickCount={3}
             yAxisId="right"
-            // domain={[75, "dataMax + 4"]}
           />
           <YAxis
             orientation="left"
-            // axisLine={false}
-            // dx={15}
-            // tickLine={false}
             dataKey="calories"
             tickCount={3}
             yAxisId="left"
             hide={true}
           />
-          <Tooltip content={<CustomTooltip />}  />
+          <Tooltip content={<CustomTooltip />} />
           <Bar
             barSize={7}
             dataKey="kilogram"
@@ -109,5 +121,8 @@ function DailyGraphic({ data: dailyData }) {
     </div>
   );
 }
+DailyGraphic.propTypes = {
+  data: PropTypes.array,
+};
 
 export default DailyGraphic;

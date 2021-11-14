@@ -1,5 +1,6 @@
 import React from "react";
-import { Legend, RadarChart, PolarGrid, PolarAngleAxis, Radar } from "recharts";
+import { RadarChart, PolarGrid, PolarAngleAxis, Radar } from "recharts";
+import PropTypes from "prop-types";
 
 function PerformanceGraphic({ data }) {
   return (
@@ -9,7 +10,6 @@ function PerformanceGraphic({ data }) {
         width={258}
         height={258}
         data={data}
-        // outerRadius="100"
       >
         <PolarGrid radialLines={false} />
         <PolarAngleAxis
@@ -28,5 +28,8 @@ function PerformanceGraphic({ data }) {
     </div>
   );
 }
+PerformanceGraphic.propTypes = {
+  data: PropTypes.array,
+};
 
 export default PerformanceGraphic;

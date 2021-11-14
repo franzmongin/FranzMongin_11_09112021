@@ -3,7 +3,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   LineChart,
   Line,
   ReferenceArea,
@@ -83,6 +82,7 @@ function AverageSessionsGraphic({ data }) {
    * @returns {(string|ReactElement)}
    */
   const CustomTooltip = ({ active, payload }) => {
+    
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
@@ -174,7 +174,7 @@ function AverageSessionsGraphic({ data }) {
   );
 }
 AverageSessionsGraphic.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array,
 };
 
 export default AverageSessionsGraphic;
