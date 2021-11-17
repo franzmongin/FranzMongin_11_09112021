@@ -104,7 +104,7 @@ function Profile() {
         </div>
         {apiError === false && isLoading === false && (
           <div className="main-content">
-            <h1>
+            <h1 className="greeting-heading">
               Bonjour <span className="first-name">{userName}</span>
             </h1>
             <h2>Félicitations! Vous avez explosé vos objectifs hier 👏</h2>
