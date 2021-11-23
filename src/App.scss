@@ -69,8 +69,8 @@ $second-red: #e60000;
     }
     .main-content {
       flex-grow: 1;
-      padding-left: calc(4% + 117px);
-      padding-right: 4%;
+      padding-left: calc(3% + 117px);
+      padding-right: 3%;
       padding-bottom: 40px;
       display: flex;
       flex-direction: column;
@@ -88,6 +88,16 @@ $second-red: #e60000;
         .first-name {
           color: $base-red;
         }
+      }
+      .greetings {
+        margin-bottom: 77px;
+        font-family: Roboto;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: left;
       }
       .stats-and-graphics {
         display: flex;

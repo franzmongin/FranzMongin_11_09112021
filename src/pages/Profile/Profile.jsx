@@ -107,7 +107,9 @@ function Profile() {
             <h1 className="greeting-heading">
               Bonjour <span className="first-name">{userName}</span>
             </h1>
-            <h2>Félicitations! Vous avez explosé vos objectifs hier 👏</h2>
+            <span className="greetings">
+              Félicitations! Vous avez explosé vos objectifs hier 👏
+            </span>
             <div className="stats-and-graphics">
               <section className="graphics">
                 <DailyGraphic data={dailyData} />
