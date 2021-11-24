@@ -7,5 +7,6 @@ export class userDataModel {
     } else if (data.todayScore) {
       this.todayScore = data.todayScore;
     }
+    this.keyData = data.keyData;
   }
 }

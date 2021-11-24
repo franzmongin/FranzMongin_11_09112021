@@ -23,6 +23,7 @@ import {
 import { perfDataModel } from "../../models/perfDataModel";
 import { averageSessionsDataModel } from "../../models/averageSessionsDataModel";
 import { activityDataModel } from "../../models/activityDataModel";
+import { userDataModel } from "../../models/userDataModel";
 
 function Profile() {
   const { id } = useParams();
@@ -51,9 +52,10 @@ function Profile() {
         //fetch user data and stats and set states
         let userData = await fetchUserData(id);
         userData = userData.data;
-        settodayScore(userData.todayScore * 100);
-        setUserName(userData.userInfos.firstName);
-        setStats(userData.keyData);
+        const formattedUserData = new userDataModel(userData);
+        settodayScore(formattedUserData.todayScore * 100);
+        setUserName(formattedUserData.userInfos.firstName);
+        setStats(formattedUserData.keyData);
 
         //fetch activity data
         let activityData = await fetchActivityData(id);
